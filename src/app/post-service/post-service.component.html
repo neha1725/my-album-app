@@ -1,0 +1,28 @@
+<h1>User Posts</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><span class="glyphicon glyphicon-user" ></span></th>      
+      <th>Post Title</th>
+      <th>Comments</th>
+      <th></th>    
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor = "let post of posts">
+      <td><span class="glyphicon glyphicon-pencil"></span></td>
+      <td>{{post.title}}</td>
+      <td><button type="button" class="btn btn-link" (click)="viewComments(post.id)">View Comments</button> 
+        <div>
+            <ul *ngFor="let cmnt of comments">
+                <li *ngIf="showComment && cmnt.postId == post.id" >
+                    <p>{{cmnt.body}}</p>
+                </li>
+            </ul>
+        </div>    
+    </td>
+    </tr>  
+  </tbody>
+</table>
+
+
