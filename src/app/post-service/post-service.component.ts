@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Comment } from '../models/comments';
 import { CommentService } from '../service/comment-service';
 
+
 @Component({
   selector: 'app-post-service',
   templateUrl: './post-service.component.html',
@@ -15,6 +16,7 @@ export class PostServiceComponent implements OnInit {
   posts: Post[] = [];
   id: number;
   showComment : boolean = false;
+  name : string;
 
   constructor(private service: PostService, private route: ActivatedRoute,
     private router: Router,private commentService: CommentService) {  
@@ -24,6 +26,7 @@ export class PostServiceComponent implements OnInit {
   ngOnInit() {  
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
+      this.name = params.get('name');
       if (id) {
         this.id = +id;
         this.service.getUsersPosts(this.id).subscribe(

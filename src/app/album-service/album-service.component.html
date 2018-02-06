@@ -1,0 +1,22 @@
+<h1>User Albums</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><span class="glyphicon glyphicon-user" ></span></th>      
+      <th>Album Name</th>
+      <th></th>
+      <th></th>    
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor = "let album of albums">        
+      <td><span class="glyphicon glyphicon-picture"></span></td>
+      <td>{{album.title}}</td>
+      <td><a [routerLink] ="['/photos', album.id, album.title]"  class="btn btn-info btn-sm">
+          <span class="glyphicon glyphicon-picture"></span> View</a></td>
+    </tr>  
+  </tbody>
+</table>
+
+
+
