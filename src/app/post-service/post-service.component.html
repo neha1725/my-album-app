@@ -1,35 +1,43 @@
 <h1>User Posts</h1>
 <button class="btn btn-primary btn-md pull-right" data-target="#loginModal" data-toggle="modal">New Post
-  </button>
-  <div class="modal fade" tabindex="-1" id="loginModal" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            &times;
-          </button>
-          <h4 class="modal-title">New Post</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="inputUserName">Title</label>
-              <!-- <input #postTitle type="text" [(ngModel)]="post.title" required> -->
-              <input class="form-control" placeholder="Title" type="text" id="postTitle" />
+</button>
+<div class="modal fade" tabindex="-1" id="loginModal" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">New Post</h4>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm">
+          <div class="form-group">
+            <input class="form-control" placeholder="Title" type="text"  name = "postTitle" id="title"  [ngModel]="posts.title" required #postTitle="ngModel"
+            />
+            <div class="alert alert-danger" *ngIf="postTitle.invalid && postTitle.touched">
+              <div [hidden]="!postTitle.errors.required">
+                Post title is required!
+              </div>
             </div>
-            <div class="form-group">
-              <label for="inputPassword">Message</label>
-              <input class="form-control" placeholder="Message" type="text" id="postMessage" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-success" (click) = "addPost()" >Done</button>
-        </div>
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Message" type="text" name = "postMessage" id="title"  [ngModel]="posts.body" required #postMessage="ngModel" />
+            <div class="alert alert-danger" *ngIf="postMessage.invalid && postMessage.touched">
+                <div [hidden]="!postMessage.errors.required">
+                  Post message is required!
+                </div>
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="onSavePost()" [disabled]="!f.form.valid" data-dismiss="modal">Done</button>
       </div>
     </div>
   </div>
+</div>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -37,7 +45,7 @@
         <span class="glyphicon glyphicon-user"></span>
       </th>
       <th>Posts from {{name}}</th>
-      <th>Comments</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -46,18 +54,16 @@
       <td>
         <span class="glyphicon glyphicon-pencil"></span>
       </td>
-      <td>{{post.title}}</td>
+      <td>
+        <b>{{post.title}}</b>
+        <p>{{post.body}}</p>
+        <div *ngFor="let cmnt of comments">
+          <p id="rcorners4" *ngIf="showComment && cmnt.postId == post.id">{{cmnt.body}}</p>
+        </div>
+      </td>
       <td>
         <button type="button" class="btn btn-link" (click)="viewComments(post.id)">View Comments</button>
-        <div>
-          <ul *ngFor="let cmnt of comments">
-            <li *ngIf="showComment && cmnt.postId == post.id">
-              <p>{{cmnt.body}}</p>
-            </li>
-          </ul>
-        </div>
       </td>
     </tr>
   </tbody>
 </table>
-

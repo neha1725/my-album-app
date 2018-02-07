@@ -16,7 +16,7 @@ import { AlbumServiceComponent } from './album-service/album-service.component';
 import { AlbumService } from './service/album-service';
 import { PhotoServiceComponent } from './photo-service/photo-service.component';
 import { PhotoService } from './service/photo-service';
-
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +31,8 @@ import { PhotoService } from './service/photo-service';
     PhotoServiceComponent
   ],
   imports: [
-    BrowserModule, HttpModule, HttpClientModule, RouterModule.forRoot([
+    BrowserModule, HttpModule, HttpClientModule,FormsModule, 
+      RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'users', component: UserServiceComponent },
       { path: 'posts/:id/:name', component: PostServiceComponent },

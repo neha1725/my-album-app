@@ -1,10 +1,11 @@
 <h2>{{title}}<h2>
 <div class="col" *ngFor = "let img of photos">
-    <div class="col-md-4" >
+    <div class="col-sm-2" >
       <div class="thumbnail">
         <a href = {{img.url}} target="_blank">
           <img src= {{img.thumbnailUrl}} alt="Lights" style="width:100%">          
         </a>
+        <div class="desc" data-toggle="tooltip" data-placement="right" title= {{img.title}}>{{img.title}}</div>
       </div>
     </div>
 
