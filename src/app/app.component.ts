@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {NgRedux} from 'ng2-redux';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import 'rxjs/add/operator/map';
 })
 export class AppComponent {
   title = 'app';
+  counter = 0;
   constructor() {
-  }
+  }  
 }

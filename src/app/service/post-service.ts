@@ -7,13 +7,15 @@ import { Observable } from 'rxjs/Observable';
 
 import { Post } from '../models/posts';
 import { Comment } from '@angular/compiler';
+import { post } from 'selenium-webdriver/http';
+
 
 @Injectable()
 export class PostService {
 
     private apiUrl = 'http://jsonplaceholder.typicode.com/posts';
     private posts: Post[] = [];
-
+    id: number = 0;
     constructor(private http: Http) { }
 
     getUsersPosts(id: number): Observable<Post[]> {
@@ -22,7 +24,7 @@ export class PostService {
             .map((response: Response) => response.json())
     }
 
-    addPost(id: number, postTitle: string, postMessage: string): Observable<Post> {       
+    addPost(id: number, postTitle: string, postMessage: string): Observable<Post> {
         return this.http
             .post('https://jsonplaceholder.typicode.com/posts', {
                 userId: id,
@@ -31,3 +33,4 @@ export class PostService {
             }).map((response: Response) => response.json())
     }
 }
+

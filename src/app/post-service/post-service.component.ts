@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Comment } from '../models/comments';
 import { CommentService } from '../service/comment-service';
 import { NgForm } from '@angular/forms';
-
+import {NgRedux} from 'ng2-redux';
 
 @Component({
   selector: 'app-post-service',
@@ -16,13 +16,13 @@ export class PostServiceComponent implements OnInit {
   comments: Comment[];
   posts: Post[] = [];
   id: number;
-  showComment: boolean = false;
+  showComment: boolean;
   name: string;
   @ViewChild('f') newPost: NgForm;
 
   constructor(private service: PostService, private route: ActivatedRoute,
-    private router: Router, private commentService: CommentService) {
-
+    private router: Router, private commentService: CommentService,private ngRedux : NgRedux<Post[]>) {
+      this.showComment = false;
   }
 
   ngOnInit() {
@@ -44,15 +44,14 @@ export class PostServiceComponent implements OnInit {
     if (postId) {
       this.commentService.getPostComments(postId).subscribe(
         (comments: Comment[]) => {
-          this.comments = comments;
-          this.showComment = true;         
+          this.comments = comments;          
+          this.showComment = !this.showComment;            
         }
       );
     }
   }
 
   onSavePost() {    
-    debugger;
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id ) {
@@ -60,10 +59,8 @@ export class PostServiceComponent implements OnInit {
         this.service.addPost(this.id, this.newPost.value.postTitle, this.newPost.value.postMessage).subscribe(
           (posts: Post) => {
             this.posts.push(posts);           
-          }
-        );
-      }
+          });
+      }     
     });
   }
 }
-

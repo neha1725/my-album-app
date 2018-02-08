@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="form-group">
-            <input class="form-control" placeholder="Message" type="text" name = "postMessage" id="title"  [ngModel]="posts.body" required #postMessage="ngModel" />
+            <input class="form-control" placeholder="Message" type="text" name = "postMessage" id="body"  [ngModel]="posts.body" required #postMessage="ngModel" />
             <div class="alert alert-danger" *ngIf="postMessage.invalid && postMessage.touched">
                 <div [hidden]="!postMessage.errors.required">
                   Post message is required!
@@ -57,7 +57,7 @@
       <td>
         <b>{{post.title}}</b>
         <p>{{post.body}}</p>
-        <div *ngFor="let cmnt of comments">
+        <div *ngFor="let cmnt of comments" >
           <p id="rcorners4" *ngIf="showComment && cmnt.postId == post.id">{{cmnt.body}}</p>
         </div>
       </td>
